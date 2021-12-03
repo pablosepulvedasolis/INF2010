@@ -78,6 +78,7 @@ public class Tests {
             System.out.println("directedGraphConnectTest failed");
             return;
         }
+        System.out.println(newGraph.toString());
         System.out.println("directedGraphConnectTest passed");
     }
 

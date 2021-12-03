@@ -16,6 +16,15 @@ public class UndirectedGraph implements Graph {
     @Override
     public void connect(int v1, int v2){
         /*TODO Implement necessary conditions for connect and justify each condition */
+        if (v1 < 0 || v1 >= nodeQuantity)
+            return; //Justification: On veut connecter deux noeuds si leur index est valable (entre 0 et nbNoeuds -1)
+        //                           On ne veut pas qu'un noeud aille une valeur supérieure au cardinal de l'ensemble des sommets
+        if (v2 < 0 || v2 >= nodeQuantity)
+            return; //Justification: On veut connecter deux node uniquement si leurs valeurs ne pas négatives
+        //                           On ne veut pas qu'un noeud aille une valeur supérieure au cardinal de l'ensemble des sommets
+        if (neighbours[v1].contains(v2))
+            return; //Justification: On veut s'assurer que les deux noeuds ne sont pas déjà connectés
+
         neighbours[v1].add(v2);
         neighbours[v2].add(v1);
         graphEdges++;

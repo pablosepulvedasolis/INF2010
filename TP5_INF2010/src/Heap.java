@@ -29,7 +29,6 @@ public class Heap {
        return (2 * pos) + 1;
     }
 
-
     private boolean isLeaf(int pos) {
         return pos > (size / 2) && pos <= size;
     }
@@ -73,14 +72,22 @@ public class Heap {
     }
 
     /*TODO Find the vertex in the heap using the Vertex's index and decrease the key and heapify the elements. */
-    public void decreaseKey(Vertex v, int newCost){
-
+    public void decreaseKey(Vertex v, int newCost) {
+        for (int i = FRONT; i < Heap.length; i++) {
+            if (i == v.index) {
+                v.cost = newCost;
+                break;
+            }
+        }
+        minHeapify(FRONT);
     }
 
     /*TODO Find the smallest cost unknown Vertex in the Heap. */
-    public Vertex findSmallestUnknown(){
-
-        return null;
+    public Vertex findSmallestUnknown() {
+        Vertex smallestVertex = poll();
+        while(smallestVertex.known)
+            smallestVertex = poll();
+        return smallestVertex;
     }
 
     public Vertex poll() {

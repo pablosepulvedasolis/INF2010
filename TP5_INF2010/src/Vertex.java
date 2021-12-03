@@ -12,7 +12,6 @@ public class Vertex implements Comparable<Vertex> {
 
     @Override
     public int compareTo(Vertex o) {
-        /* Implement comparison between the cost of two edges */
-        return -1;
+        return Integer.compare(this.cost, o.cost);
     }
 }
