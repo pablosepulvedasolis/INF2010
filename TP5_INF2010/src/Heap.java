@@ -73,11 +73,13 @@ public class Heap {
 
     /*TODO Find the vertex in the heap using the Vertex's index and decrease the key and heapify the elements. */
     public void decreaseKey(Vertex v, int newCost) {
-        for (int i = FRONT; i < size; i++) {
-            if (Heap[i].index == v.index) {
-                Heap[i].cost = newCost;
-                minHeapify(i);
-                break;
+        for (int i = FRONT; i <= size; i++) {
+            if (!Heap[i].known && Heap[i].index == v.index) {
+                if (Heap[i].cost > newCost) {
+                    Heap[i].cost = newCost;
+                    minHeapify(i);
+                    return;
+                }
             }
         }
         minHeapify(FRONT);
@@ -85,19 +87,25 @@ public class Heap {
 
     /*TODO Find the smallest cost unknown Vertex in the Heap. */
     public Vertex findSmallestUnknown() {
-        Vertex smallestVertex = poll();
-        while(smallestVertex.known)
-            smallestVertex = poll();
-        return smallestVertex;
+        int index = FRONT;
+        Vertex smallestCost = Heap[FRONT];
+
+        while (smallestCost.known && index < size) smallestCost = Heap[++index];
+        while (++index < size)
+            if (Heap[index].cost < smallestCost.cost && !Heap[index].known) {
+                smallestCost = Heap[index];
+            }
+        if (smallestCost.known) return null;
+        return smallestCost;
     }
 
     public Vertex poll() {
         Vertex popped = Heap[FRONT];
         Heap[FRONT] = Heap[size--];
-        if(size > 1)
+        if (size > 1)
             minHeapify(FRONT);
 
-        if(size < 1){
+        if (size < 1) {
             isEmpty = true;
         }
 

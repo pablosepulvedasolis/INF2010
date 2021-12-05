@@ -27,9 +27,9 @@ public class DirectedGraphWeighted {
         StringBuilder o = new StringBuilder();
         String ln = System.getProperty("line.separator");
         o.append(vertexCapacity).append(ln).append(edgeQuantity).append(ln);
-        for(int i = 0; i < neighbours.length; i++){
-            for(Vertex vertex: neighbours[i]){
-                o.append("arc: ").append(vertex.index).append("\tcoût: ").append(vertex.cost).append(ln);
+        for (int v = 0; v < vertexCapacity; v++) {
+            for (Vertex w : neighbours[v]) {
+                o.append("arc: ").append(v + "-" + w.index + "\t cost: " + w.cost + ln);
             }
         }
         return o.toString();
@@ -52,7 +52,7 @@ public class DirectedGraphWeighted {
         /* NE PAS MODIFIER CE CODE */
 
         /* TODO Add all of the vertices to the Heap start at Index 1. The default cost should be the largest possible value for an integer */
-        for (int i = 1; i < vertexCapacity; i++) {
+        for (int i = 1; i < neighbours.length; i++) {
             vertices.add(new Vertex(Integer.MAX_VALUE, i));
         }
 
@@ -62,9 +62,7 @@ public class DirectedGraphWeighted {
             v.known = true;
             for (Vertex w : adj(v.index)) {
                 /* TODO Decrease the cost of the vertex in the Heap using decreaseKey if conditions are met */
-                if (!w.known) {
-                    vertices.decreaseKey(w, v.cost + w.cost);
-                }
+                    vertices.decreaseKey(w, v.cost + w.cost); //conditions are verified in decreaseKey method
             }
         }
 
