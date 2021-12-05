@@ -73,9 +73,10 @@ public class Heap {
 
     /*TODO Find the vertex in the heap using the Vertex's index and decrease the key and heapify the elements. */
     public void decreaseKey(Vertex v, int newCost) {
-        for (int i = FRONT; i < Heap.length; i++) {
-            if (i == v.index) {
-                v.cost = newCost;
+        for (int i = FRONT; i < size; i++) {
+            if (Heap[i].index == v.index) {
+                Heap[i].cost = newCost;
+                minHeapify(i);
                 break;
             }
         }
