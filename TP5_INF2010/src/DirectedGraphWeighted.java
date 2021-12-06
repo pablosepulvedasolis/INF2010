@@ -61,10 +61,27 @@ public class DirectedGraphWeighted {
             if (v == null) break;
             v.known = true;
             for (Vertex w : adj(v.index)) {
+                /*1. Quel sera le nombre d’itération maximale et minimale pour la boucle suivante
+                que vous avez implémenté dans le deuxième TODO:
+                Le nombre d'itération maximale sera vertexCapacity-1 si le sommet v est adjacent à
+                tous les autres sommets du graphe (il ne peux pas être ajdacent à lui-même). Le nombre
+                d'itération minimale sera 0 si le sommet v n'a pas de noeuds adjacents.*/
+
+                /*2. Dans le pire cas, quel sera le nombre de modification du coût pour un sommet?
+                Le pire cas étant le cas qui cause le nombre de modifications au cout le plus élevé.
+                Dans le pire cas, le sommet sera adjacent à tous les autres sommets du graphe et ces
+                sommets seront parcourus dans l’ordre décroissant selon leur coût. Le nombre de modifications
+                du coût pour un sommet dans ce pire cas sera, alors, vertexCapacity - 1.*/
+
                 /* TODO Decrease the cost of the vertex in the Heap using decreaseKey if conditions are met */
-                    vertices.decreaseKey(w, v.cost + w.cost); //conditions are verified in decreaseKey method
+                vertices.decreaseKey(w, v.cost + w.cost); //conditions are verified in decreaseKey method
             }
         }
+        /*3. Quel sera le nombre d’itération pour la boucle que vous avez implémenté
+        dans le troisième TODO selon le nombre de sommet suivant:
+        a. 10 sommets : 10 itérations
+        b. 100 sommets : 100 itérations
+        c. 1000 sommets : 1000 itérations*/
 
         /*TODO Add up the total cost of the elements in the Heap */
         while (!vertices.isEmpty) {
